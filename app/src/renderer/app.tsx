@@ -2,9 +2,9 @@ import { useState } from 'react'
 import copy from 'copy-to-clipboard'
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline'
 import Store from 'electron-store'
-import { getCurrentWindow, app } from '@electron/remote'
+import { getCurrentWindow } from '@electron/remote'
 
-import { install } from './install'
+import { install } from '../main/install'
 import OllamaIcon from './ollama.svg'
 
 const store = new Store()

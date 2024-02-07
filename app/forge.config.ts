@@ -7,8 +7,8 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack'
 import * as path from 'path'
 import * as fs from 'fs'
 
-import { mainConfig } from './webpack.main.config'
-import { rendererConfig } from './webpack.renderer.config'
+// import { mainConfig } from './webpack.main.config'
+// import { rendererConfig } from './webpack.renderer.config'
 
 const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, './package.json'), 'utf8'))
 
@@ -54,24 +54,24 @@ const config: ForgeConfig = {
   },
   plugins: [
     new AutoUnpackNativesPlugin({}),
-    new WebpackPlugin({
-      mainConfig,
-      devContentSecurityPolicy: `default-src * 'unsafe-eval' 'unsafe-inline'; img-src data: 'self'`,
-      renderer: {
-        config: rendererConfig,
-        nodeIntegration: true,
-        entryPoints: [
-          {
-            html: './src/index.html',
-            js: './src/renderer.tsx',
-            name: 'main_window',
-            preload: {
-              js: './src/preload.ts',
-            },
-          },
-        ],
-      },
-    }),
+    // new WebpackPlugin({
+    //   mainConfig,
+    //   devContentSecurityPolicy: `default-src * 'unsafe-eval' 'unsafe-inline'; img-src data: 'self'`,
+    //   renderer: {
+    //     config: rendererConfig,
+    //     nodeIntegration: true,
+    //     entryPoints: [
+    //       {
+    //         html: './src/index.html',
+    //         js: './src/renderer.tsx',
+    //         name: 'main_window',
+    //         preload: {
+    //           js: './src/preload.ts',
+    //         },
+    //       },
+    //     ],
+    //   },
+    // }),
   ],
 }
 

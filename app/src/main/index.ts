@@ -14,11 +14,11 @@ if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
+const preload = path.join(__dirname, '../preload/index.js')
+
 const store = new Store()
 
 let welcomeWindow: BrowserWindow | null = null
-
-declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 
 const logger = winston.createLogger({
   transports: [
@@ -58,7 +58,6 @@ app.on('ready', () => {
 })
 
 function firstRunWindow() {
-  // Create the browser window.
   welcomeWindow = new BrowserWindow({
     width: 400,
     height: 500,
@@ -68,6 +67,7 @@ function firstRunWindow() {
     movable: true,
     show: false,
     webPreferences: {
+      preload,
       nodeIntegration: true,
       contextIsolation: false,
     },
@@ -75,7 +75,7 @@ function firstRunWindow() {
 
   require('@electron/remote/main').enable(welcomeWindow.webContents)
 
-  welcomeWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
+  welcomeWindow.loadFile(path.join(__dirname, '../renderer/index.html'))
   welcomeWindow.on('ready-to-show', () => welcomeWindow.show())
   welcomeWindow.on('closed', () => {
     if (process.platform === 'darwin') {
